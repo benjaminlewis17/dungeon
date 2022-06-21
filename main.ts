@@ -38,6 +38,9 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . f f f . . . . 
         `)
 })
+info.onCountdownEnd(function () {
+    game.over(false)
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.setImage(img`
         . . . . f f f f f . . . 
@@ -78,7 +81,11 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . f f . . f f . . . 
         `)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    game.over(false)
+})
 let mySprite: Sprite = null
+info.startCountdown(20)
 info.setScore(0)
 info.setLife(3)
 mySprite = sprites.create(img`
@@ -124,7 +131,7 @@ let swordenemy = sprites.create(img`
     ........................
     ........................
     ........................
-    `, SpriteKind.Player)
+    `, SpriteKind.Enemy)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
 tiles.setCurrentTilemap(tilemap`level1`)
